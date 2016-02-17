@@ -1,0 +1,23 @@
+{
+    "appApp": {
+        "devis" : {
+            "home": {
+                "title": "Deviss",
+                "createLabel": "Créer un nouveau Devis",
+                "createOrEditLabel": "Créer ou éditer un Devis"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Devis {{ id }} ?"
+            },
+            "detail": {
+                "title": "Devis"
+            },
+            "codeDevis": "CodeDevis",
+            "montant": "Montant",
+            "montantAchat": "MontantAchat",
+            "date": "Date",
+            "affaire": "affaire"
+        }
+    }
+}
+

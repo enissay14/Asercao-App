@@ -1,0 +1,24 @@
+{
+    "appApp": {
+        "achat" : {
+            "home": {
+                "title": "Achats",
+                "createLabel": "Créer un nouveau Achat",
+                "createOrEditLabel": "Créer ou éditer un Achat"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Achat {{ id }} ?"
+            },
+            "detail": {
+                "title": "Achat"
+            },
+            "nom": "Nom",
+            "date": "Date",
+            "montant": "Montant",
+            "montantCorr": "MontantCorr",
+            "typeachat": "typeachat",
+            "affaire": "affaire"
+        }
+    }
+}
+

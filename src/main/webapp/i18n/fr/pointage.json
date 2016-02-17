@@ -1,0 +1,22 @@
+{
+    "appApp": {
+        "pointage" : {
+            "home": {
+                "title": "Pointages",
+                "createLabel": "Créer un nouveau Pointage",
+                "createOrEditLabel": "Créer ou éditer un Pointage"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Pointage {{ id }} ?"
+            },
+            "detail": {
+                "title": "Pointage"
+            },
+            "nbreHeure": "NbreHeure",
+            "date": "Date",
+            "typepointage": "typepointage",
+            "salarie": "salarie"
+        }
+    }
+}
+

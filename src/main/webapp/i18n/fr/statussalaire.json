@@ -1,0 +1,20 @@
+{
+    "appApp": {
+        "statussalaire" : {
+            "home": {
+                "title": "Statussalaires",
+                "createLabel": "Créer un nouveau Statussalaire",
+                "createOrEditLabel": "Créer ou éditer un Statussalaire"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Statussalaire {{ id }} ?"
+            },
+            "detail": {
+                "title": "Statussalaire"
+            },
+            "status": "Status",
+            "salarie": "salarie"
+        }
+    }
+}
+

@@ -1,0 +1,273 @@
+
+<div>
+	<div class="row" style="display: in-block">
+		<div class="col-md-3">
+			<h2>{{salarie.nom}} {{salarie.prenom}}</h2>
+		</div>	
+		<div class="col-md-9">
+			<div class="row" style="display: in-block">
+				<div class="col-md-4">
+					</br>
+					<h3>Pointage mois {{date | date : 'MMMM-yyyy' }}</h3>
+				</div>
+				<div class="col-md-4" style="padding-top: 40px; align: right">
+					<div id="date" class="input-append date" datetimez ng-model="date">
+					  <input data-format="MM-yyyy" type="text" id="input1" name="input1" placeholder="choisissez le mois"></input>
+					  <span class="add-on">
+						<i class="glyphicon glyphicon-calendar"></i>
+					  </span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<h4><span>Nombre Heure par Affaire:</span></h4>
+	
+	<div class="modal fade" id="saveInterventionModal" tabindex="-1" role="dialog" aria-labelledby="myInterventionLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate ng-submit="createIntervention()" show-validation>
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clearIntervention()">&times;</button>
+                        <h4 class="modal-title" id="myInterventionLabel">Créer ou changer une intervention</h4>
+                    </div>
+                    <div class="modal-body">
+						
+						<!-- Affaire -->                       
+					   <div class="form-group">
+                            <label>affaire</label>
+                            <select class="form-control" name="affaire" ng-model="intervention.affaire.id" ng-options="affaire.id as affaire.codeAffaire for affaire in affaires">
+                            </select>
+                        </div>
+						<!-- Type Intervention -->
+						<div class="form-group">
+                            <label>Type Intervention</label>
+                            <select class="form-control" name="typeintervention" ng-model="intervention.typeintervention.id" ng-options="typeintervention.id as typeintervention.type for typeintervention in typeinterventions">
+                            </select>
+                        </div>
+						<!-- nbreHeure -->
+                        <div class="form-group">
+                            <label>NbreHeure</label>
+                            <input type="number" class="form-control" name="nbreHeure"
+                                   ng-model="intervention.nbreHeure" required>
+
+                            <div ng-show="editForm.nbreHeure.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.nbreHeure.$error.required">
+                                    Ce champs est obligatoire.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.nbreHeure.$error.number">
+                                    ce champs doit être un nombre.
+                                </p>
+                            </div>
+                        </div>
+						
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearIntervention()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                        </button>
+                        <button type="submit"  class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Enregistrer</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteInterventionConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDeleteIntervention(intervention.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clearIntervention()">&times;</button>
+                        <h4 class="modal-title">Confirmer supression</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Etes vous sûr de vouloir supprimmer cette Intervention?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearIntervention()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuller</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Supprimmer</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+	<div class="table-responsive">
+		<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Affaire</th>
+						<th>Type</th>
+						<th>NbreHeure</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="intervention in interventions " ng-show ="shouldHide(intervention.date)"  >
+						<td><a ui-sref="interventionDetail({id:intervention.id})">{{intervention.affaire.codeAffaire}}</a></td>
+						<td>{{intervention.typeintervention.type}}</td>
+						<td>{{intervention.nbreHeure}}</td>
+						<td>
+							<button type="submit"
+									ng-click="updateIntervention(intervention.id)"
+									class="btn btn-primary btn-sm">
+								<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Editer </span>
+							</button>
+							<button type="submit"
+									ng-click="deleteIntervention(intervention.id)"
+									class="btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Supprimmer</span>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+	</div>
+    
+	<div class="container">	
+        <button class="btn btn-primary" data-toggle="modal" data-target="#saveInterventionModal" ng-click="clearIntervention()">
+			<span class="glyphicon glyphicon-flash"></span> <span>Nouvelle ligne</span>
+        </button>
+	</div>
+	
+	</br>
+	
+	<h4><span>Nombre Heure Diverses:</span></h4>
+	
+	<div class="modal fade" id="savePointageModal" tabindex="-1" role="dialog" aria-labelledby="myPointageLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate ng-submit="createPointage()" show-validation>
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clearPointage()">&times;</button>
+                        <h4 class="modal-title" id="myPointageLabel" >Créer ou éditer ligne</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="form-control" name="typepointage" ng-model="pointage.typepointage.id" ng-options="typepointage.id as typepointage.type for typepointage in typepointages">
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label >NbreHeure</label>
+                            <input type="number" class="form-control" name="nbreHeure"
+                                   ng-model="pointage.nbreHeure" required min="0">
+
+                            <div ng-show="editForm.nbreHeure.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.nbreHeure.$error.required">
+                                    ce champs est obligaotire.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.nbreHeure.$error.min">
+                                    Ce champs doit être positif.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.nbreHeure.$error.number" >
+                                    Ce champs doit être un nombre.
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearPointage()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Sauvegarder</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+	<div class="modal fade" id="deletePointageConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDeletePointage(pointage.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clearPointage()">&times;</button>
+                        <h4 class="modal-title">Confirmer la suppression</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Etes vous sûr de vouloir effacer cette ligne?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearPointage()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Supprimmer</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Type</th>
+					<th>NbreHeure</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pointage in pointages" ng-show ="shouldHide(pointage.date)">
+					<td>{{pointage.typepointage.type}}</td>
+                    <td>{{pointage.nbreHeure}}</td>
+                    
+                    <td>
+                        
+                        <button type="submit"
+                                ng-click="updatePointage(pointage.id)"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Editer</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="deletePointage(pointage.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Supprimmer</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+	 <div class="container">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#savePointageModal" ng-click="clearPointage()">
+            <span class="glyphicon glyphicon-flash"></span> <span>Nouvelle ligne</span>
+        </button>
+    </div>
+	
+	</br>
+	
+	<button type="submit" ui-sref="salarie" class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Retour</span>
+    </button>
+
+	</div>

@@ -1,0 +1,19 @@
+{
+    "appApp": {
+        "typeaffaire" : {
+            "home": {
+                "title": "Typeaffaires",
+                "createLabel": "Create a new Typeaffaire",
+                "createOrEditLabel": "Create or edit a Typeaffaire"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Typeaffaire {{ id }}?"
+            },
+            "detail": {
+                "title": "Typeaffaire"
+            },
+            "type": "Type",
+            "affaire": "affaire"
+        }
+    }
+}

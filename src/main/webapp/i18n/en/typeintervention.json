@@ -1,0 +1,19 @@
+{
+    "appApp": {
+        "typeintervention" : {
+            "home": {
+                "title": "Typeinterventions",
+                "createLabel": "Create a new Typeintervention",
+                "createOrEditLabel": "Create or edit a Typeintervention"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Typeintervention {{ id }}?"
+            },
+            "detail": {
+                "title": "Typeintervention"
+            },
+            "type": "Type",
+            "intervention": "intervention"
+        }
+    }
+}

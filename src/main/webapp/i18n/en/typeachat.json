@@ -1,0 +1,19 @@
+{
+    "appApp": {
+        "typeachat" : {
+            "home": {
+                "title": "Typeachats",
+                "createLabel": "Create a new Typeachat",
+                "createOrEditLabel": "Create or edit a Typeachat"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Typeachat {{ id }}?"
+            },
+            "detail": {
+                "title": "Typeachat"
+            },
+            "type": "Type",
+            "achat": "achat"
+        }
+    }
+}

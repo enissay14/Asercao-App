@@ -1,0 +1,160 @@
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/"><span>ASERCAO Etudes & Assistance Technique</span> <span class="navbar-version">v{{VERSION}}</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
+            <ul class="nav navbar-nav nav-pills navbar-right">
+                <li ui-sref-active="active">
+                    <a ui-sref="home">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active"   has-role="ROLE_MANAGER" ng-switch-when="true" >
+                    <a ui-sref="salarie">
+                                <span>
+                                    <span class="glyphicon glyphicon-asterisk"></span>
+                                    <span class="hidden-tablet">
+                                        Salariés
+                                    </span>
+                                </span>
+                    </a>
+                </li>
+				<li ui-sref-active="active"  ng-class="{active: $state.includes('manager')}"  has-role="ROLE_MANAGER" ng-switch-when="true">
+                    <a href="" ui-sref="client">
+                                <span>
+                                    <span class="glyphicon glyphicon-asterisk"></span>
+                                    <span class="hidden-tablet">
+                                        Clients
+                                    </span>
+                                </span>
+                    </a>
+                </li>
+				<li ng-class="{active: $state.includes('user')}"  has-role="ROLE_USER" ng-switch-when="true" class="dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                <span>
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                    <span class="hidden-tablet">
+                                        Menus
+                                    </span>
+                                    <b class="caret"></b>
+                                </span>
+                    </a>
+                    <ul class="dropdown-menu">
+					
+                        <li ui-sref-active="active" ><a ui-sref="salarie"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Pointage</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="affaire"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Suivi Affaire</span></a></li>
+						<li ui-sref-active="active" ><a ui-sref="releve"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Relevé d'heures mensuel </span></a></li>
+                        <!-- JHipster will add entities to the menu here -->
+                    </ul>
+                </li>
+                <li ng-class="{active: $state.includes('manager')}"  has-role="ROLE_MANAGER" ng-switch-when="true" class="dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                <span>
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <span class="hidden-tablet" >
+                                        Réglages
+                                    </span>
+                                    <b class="caret"></b>
+                                </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ui-sref-active="active" ><a ui-sref="distance"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Barème Kilométrique</span></a></li>
+						<li ui-sref-active="active" ><a ui-sref="statussalaire"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Status Salaire</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="typeaffaire"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Type Affaire</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="statusaffaire"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Secteur Affaire</span></a></li>
+						<li ui-sref-active="active" ><a ui-sref="typeachat"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Type Achat</span></a></li>
+						
+						<li ui-sref-active="active"><a ui-sref="register"><span class="glyphicon glyphicon-bell"></span>
+						&#xA0;<span>Nouveau Utilisateur</span></a></li>
+                    </ul>
+                </li>
+                <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                <span>
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <span class="hidden-tablet">
+                                        Compte
+                                    </span>
+                                    <b class="caret"></b>
+                                </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="settings"><span class="glyphicon glyphicon-wrench"></span>
+                            &#xA0;<span>Réglages</span></a></li>
+                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="password"><span class="glyphicon glyphicon-lock"></span>
+                            &#xA0;<span>Mot de passe</span></a></li>
+                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="sessions"><span class="glyphicon glyphicon-cloud"></span>
+                            &#xA0;<span>Sessions</span></a></li>
+                        <li ui-sref-active="active" ng-switch-when="true"><a href="" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span>
+                            &#xA0;<span>Déconnexion</span></a></li>
+                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="login"><span class="glyphicon glyphicon-log-in"></span>
+                            &#xA0;<span>Authentication</span></a></li>
+						<li ui-sref-active="active" ng-switch-when="false"><a ui-sref="register"><span class="glyphicon glyphicon-plus-sign"></span>
+                            &#xA0;<span>S'enregistrer</span></a></li>
+
+                        
+                    </ul>
+                </li>
+				<li ng-class="{active: $state.includes('admin')}"  ng-switch-when="true" has-role="ROLE_ADMIN" class="dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                <span>
+                                    <span class="glyphicon glyphicon-tower"></span>
+                                    <span class="hidden-tablet">Admin</span>
+                                    <b class="caret"></b>
+                                </span>
+                    </a>
+                    <ul class="dropdown-menu">
+						
+						<li ui-sref-active="active" ><a ui-sref="typepointage"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Type Pointage</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="pointage"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Pointages</span></a></li>
+						<li ui-sref-active="active" ><a ui-sref="achat"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Achat</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="commande"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Commande</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="bonfacture"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Bon Facture</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="montantcorrige"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>MontantCorrige</span></a></li>
+						
+						<li ui-sref-active="active" ><a ui-sref="typeintervention"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span>Type Intervention</span></a></li>
+						
+						------------------------------------------
+                        <li ui-sref-active="active"><a ui-sref="metrics"><span class="glyphicon glyphicon-dashboard"></span>
+                            &#xA0;<span>Metrics</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="health"><span class="glyphicon glyphicon-heart"></span>
+                            &#xA0;<span>Health</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="configuration"><span class="glyphicon glyphicon-list-alt"></span>
+                            &#xA0;<span>Configuration</span></a></li>
+						<li ui-sref-active="active"><a ui-sref="audits"><span class="glyphicon glyphicon-bell"></span>
+                            &#xA0;<span>Audits</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="logs"><span class="glyphicon glyphicon-tasks"></span>
+                            &#xA0;<span>Logs</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="docs"><span class="glyphicon glyphicon-book"></span>
+                            &#xA0;<span>API Docs</span></a></li>
+							
+                    </ul>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>

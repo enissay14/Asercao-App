@@ -1,0 +1,25 @@
+{
+    "appApp": {
+        "salarie" : {
+            "home": {
+                "title": "Salaries",
+                "createLabel": "Créer un nouveau Salarie",
+                "createOrEditLabel": "Créer ou éditer un Salarie"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Salarie {{ id }} ?"
+            },
+            "detail": {
+                "title": "Salarie"
+            },
+            "nom": "Nom",
+            "prenom": "Prenom",
+            "email": "Email",
+            "tel": "Tel",
+            "adresse": "Adresse",
+            "statussalaire": "statussalaire",
+            "intervention": "intervention"
+        }
+    }
+}
+

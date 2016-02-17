@@ -1,0 +1,1039 @@
+<div ng-cloak>
+   
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default" id="panelAffaire">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a>
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <div class="row" style="display : in-block">
+                                        <div class="col-md-4"><h2><span>Affaire:</span> {{affaire.codeAffaire}} [{{affaire.client.nom}}]</h2></div>
+                                        <div class="col-md-5"><p style="color : green; padding-top: 40px;" ng-hide="endAffaire"> <span>Taux Horaire Moyen de vente(€/h) :{{affaire.tauxHoraire}}</span></br> En cours</p><p style="color : red; padding-top: 40px;" ng-show="endAffaire">Cloturée</p></div>
+                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row" style="display : in-block">
+                                            
+                                    <div class="col-md-2">
+                                        <button style="margin-top: 40px;" type="button" class="btn btn-danger" ng-click="reouvrirAffaire()" ng-show="endAffaire">
+                                                <span class="glyphicon glyphicon-refresh"></span>&nbsp;<span>Réouvrir Affaire</span>
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="col-md-2">
+                                        <button style="margin-top: 40px;" class="btn btn-link" ng-click="exportToExcel('#summary')" >
+                                                <span class="glyphicon glyphicon-share"></span> Export to Excel
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="col-md-2">
+                                        <button style="margin-top: 40px;" type="button" class="btn btn-danger" ng-click="cloturerAffaire()" ng-disabled="endAffaire">
+                                                <span class="glyphicon glyphicon-hdd"></span>&nbsp;<span>Clôturer Affaire</span>
+                                        </button>
+                                    </div >
+                                    
+                                    <div class="col-md-2">
+                                        <button style="margin-top: 40px;" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseAffaire">
+                                                <span class="glyphicon glyphicon-chevron-down"></span>&nbsp;<span>Détails Affaire</span>
+                                        </button>
+                                    </div>
+                                    
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseAffaire" class="panel-collapse collapse">
+                    <div class="panel-body">
+                            <div class="row" >
+                                    <div class="col-md-6">
+                                            </br>
+                                            </br>
+                                            <div class="row" style="display: in-block">
+                                                    <div class="col-md-7">
+                                                            <h3>Commandes</h3>
+                                                    </div>	
+                                                    <div class="col-md-2">
+                                                            <div class="container">
+                                                                    <button class="btn btn-primary" data-toggle="modal" data-target="#saveCommandeModal" ng-click="clearCommande()">
+                                                                            <span class="glyphicon glyphicon-flash"></span> <span>Nouvelle Commande</span>
+                                                                    </button>					
+                                                            </div>
+                                                    </div>
+                                                    
+                                            </div>
+                                            
+                                            <div class="modal fade" id="saveCommandeModal" tabindex="-1" role="dialog" aria-labelledby="myCommandeLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                    <form name="editFormCommande" role="form" novalidate ng-submit="createCommande()" show-validation>
+
+                                                                            <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                                                                                    ng-click="clear()">&times;</button>
+                                                                                    <h4 class="modal-title" id="myCommandeLabel">Créer ou éditer Commande</h4>
+                                                                            </div>
+                                                                            <div class="modal-body">
+
+                                                                                    <div class="form-group">
+                                                                                            <label>CodeCommande</label>
+                                                                                            <input type="text" class="form-control" name="codeCommande"
+                                                                                                        ng-model="commande.codeCommande" required>
+
+                                                                                            <div ng-show="editFormCommande.codeCommande.$invalid">
+                                                                                                    <p class="help-block"
+                                                                                                        ng-show="editFormCommande.codeCommande.$error.required">
+                                                                                                            Ce champs est obligatoire.
+                                                                                                    </p>
+                                                                                            </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                            <label>Montant</label>
+                                                                                            <input type="number" class="form-control" name="montant"
+                                                                                                        ng-model="commande.montant" required>
+
+                                                                                            <div ng-show="editFormCommande.montant.$invalid">
+                                                                                                    <p class="help-block"
+                                                                                                        ng-show="editFormCommande.montant.$error.required">
+                                                                                                            Ce champs est obligatoire.
+                                                                                                    </p>
+                                                                                                    <p class="help-block"
+                                                                                                        ng-show="editFormCommande.montant.$error.number">
+                                                                                                            Ce champs doit être un nombre.
+                                                                                                    </p>
+                                                                                            </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                            <label>Montant Achat</label>
+                                                                                            <input type="number" class="form-control" name="montantAchat"
+                                                                                                        ng-model="commande.montantAchat" required>
+
+                                                                                            <div ng-show="editFormCommande.montantAchat.$invalid">
+                                                                                                    <p class="help-block"
+                                                                                                        ng-show="editFormCommande.montantAchat.$error.required">
+                                                                                                            Ce champs est obligatoire.
+                                                                                                    </p>
+                                                                                                    <p class="help-block"
+                                                                                                        ng-show="editFormCommande.montantAchat.$error.number">
+                                                                                                            Ce champs doit être un nombre.
+                                                                                                    </p>
+                                                                                            </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                            <label>Devis- nbreHeure</label>
+                                                                                            <input type="number" class="form-control" name="nbreHeure"
+                                                                                                        ng-model="commande.nbreHeure" required>
+
+                                                                                            <div ng-show="editFormCommande.montant.$invalid">
+                                                                                                    <p class="help-block"
+                                                                                                        ng-show="editFormCommande.montant.$error.required">
+                                                                                                            Ce champs est obligatoire.
+                                                                                                    </p>
+                                                                                                    <p class="help-block"
+                                                                                                        ng-show="editFormCommande.montant.$error.number">
+                                                                                                            Ce champs doit être un nombre.
+                                                                                                    </p>
+                                                                                            </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                            <label>Taux horaire estimé: {{tauxHoraire | number:0 }}</label>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                            <label>Date</label>
+                                                                                            <input type="date" class="form-control" name="date"
+                                                                                                        ng-model="commande.date" required>
+
+                                                                                            <div ng-show="editFormCommande.date.$invalid">
+                                                                                                    <p class="help-block"
+                                                                                                        ng-show="editFormCommande.date.$error.required">
+                                                                                                            Ce champs est obligatoire.
+                                                                                                    </p>
+                                                                                            </div>
+                                                                            </div>
+
+                                                        
+                                                                    </div>
+                                                                            <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearCommande()">
+                                                                                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                                                                                    </button>
+                                                                                    <button type="submit" ng-disabled="editFormCommande.$invalid" class="btn btn-primary">
+                                                                                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Enregistrer</span>
+                                                                                    </button>
+                                                                            </div>
+                                                                    </form>
+                                                
+                                                            </div>
+                                                    </div>
+                                            </div>
+                                            
+                                            <div class="modal fade" id="deleteCommandeConfirmation">
+                                                    <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                    <form name="deleteForm" ng-submit="confirmDeleteCommande(commande.id)">
+                                                                            <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                                                                                    ng-click="clearCommande()">&times;</button>
+                                                                                    <h4 class="modal-title" >Confirmer suppression</h4>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                    <p>Etes vous sûr de vouloir supprimmer cette Commande?</p>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearCommande()">
+                                                                                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                                                                                    </button>
+                                                                                    <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                                                                                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Supprimmer</span>
+                                                                                    </button>
+                                                                            </div>
+                                                                    </form>
+                                                            </div>
+                                                    </div>
+                                            </div>
+
+                                            <table id="commandeTable" class="table table" style="display: block;  height: 220px; overflow-y: scroll">
+                                                    <thead>
+                                                            <tr>
+                                                                    <th>CDE client</th>
+                                                                    <th>Date de commande</th>
+                                                                    <th>Montant CDE</th>
+                                                                    <th>Nombre d’Heures</th>
+                                                                    <th>Nbre Achat</th>
+                                                                    
+                                                            </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                            <tr ng-repeat="commande in commandes">
+                                                                    <td>{{commande.codeCommande}}</td>
+                                                                    <td>{{commande.date}}</td>
+                                                                    <td>{{commande.montant}}</td>
+                                                                    <td>{{commande.nbreHeure}}</td>
+                                                                    <td>{{commande.montantAchat}}</td>
+                                                                    
+                                                                    <td>
+                                                                            <button type="submit"
+                                                                                    ng-click="updateCommande(commande.id)"
+                                                                                    class="btn btn-primary btn-sm">
+                                                                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Editer</span>
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                                    ng-click="deleteCommande(commande.id)"
+                                                                                    class="btn btn-danger btn-sm">
+                                                                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Supprimmer</span>
+                                                                    </button>
+                                                                    </td>
+                                                            </tr>
+                                                    </tbody>
+                                            </table>
+                                            
+
+                                    </div>
+                                    <div class="container col-md-6">
+                                                
+                                            <!-- total commandes -->
+                                            <div class="row">
+                                                            <div class="col-md-6">
+                                                                    <div id="total-commande">
+                                                                            <div class="table-responsive">
+                                                                                    <table id="totalCommande" class="table table-striped" >
+                                                                                            <tbody>
+                                                                                                    <tr>
+                                                                                                            <td>Total Commandes</td>
+                                                                                                            <td>{{totalCommandes}}</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                            <td>Total Nombre d'Heures</td>
+                                                                                                            <td>{{totalNbreHeureCommandes}}</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                            <td>Total Achats</td>
+                                                                                                            <td>{{totalAchatsCommandes}}</td>
+                                                                                                    </tr>
+                                                                                            </tbody>
+                                                                                    </table>
+                                                                            </div>
+                                                                    </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                    <div id="cout-affaire">
+                                                                            <div class="table-responsive">
+                                                                                    <table id="coutAffaire" class="table table-striped" >
+                                                                                            <tbody>
+                                                                                                    <tr>
+                                                                                                            <td>Coût de Production</td>
+                                                                                                            <td>{{coutAffaire}}</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                            <td>Marge</td>
+                                                                                                            <td>{{benefice}}</td>
+                                                                                                    </tr>
+                                                                                            </tbody>
+                                                                                    </table>
+                                                                            </div>
+                                                                    </div>
+                                                            </div>
+                                                    </div>
+                                            
+                                            
+                                    </div>
+                            
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+    <div class="modal fade" id="saveInterventionModal" tabindex="-1" role="dialog" aria-labelledby="myInterventionLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                    <div class="modal-content">
+                            <form name="editFormInterv" role="form" novalidate ng-submit="createIntervention()" show-validation>
+
+                                    <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                                            ng-click="clearIntervention()">&times;</button>
+                                            <h4 class="modal-title" id="myInterventionLabel">Créer ou changer une intervention</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                            
+                                            <!-- Type Intervention -->
+                                            <div class="form-group">
+                                                    <label>Type </label>
+                                                    <select class="form-control" name="typeintervention" ng-model="intervention.typeintervention.id" ng-options="typeintervention.id as typeintervention.type for typeintervention in typeinterventions">
+                                                    </select>
+                                            </div>
+                                            <!-- nbreHeure -->
+                                            <div class="form-group">
+                                                    <label>NbreHeure</label>
+                                                    <input type="number" class="form-control" name="nbreHeure"
+                                                                ng-model="intervention.nbreHeure" required>
+
+                                                    <div ng-show="editFormInterv.nbreHeure.$invalid">
+                                                            <p class="help-block"
+                                                                ng-show="editFormInterv.nbreHeure.$error.required">
+                                                                    Ce champs est obligatoire.
+                                                            </p>
+                                                            <p class="help-block"
+                                                                ng-show="editFormInterv.nbreHeure.$error.number">
+                                                                    ce champs doit être un nombre.
+                                                            </p>
+                                                    </div>
+                                            </div>
+                                            <!-- tauxHoraire -->
+                                            <div class="form-group">
+                                                    <label>tauxHoraire</label>
+                                                    <input type="number" class="form-control" name="tauxHoraire"
+                                                                ng-model="intervention.tauxHoraire" placeholder="{{intervention.tauxHoraire}}">
+                                            </div>
+                                            <!-- nbreJour -->
+                                            <div class="form-group">
+                                                    <label>NbreJour</label>
+                                                    <input type="number" class="form-control" name="nbreJour"
+                                                                ng-model="intervention.nbreJour" placeholder="{{intervention.nbreJour}}" required>
+
+                                                    <div ng-show="editFormInterv.nbreJour.$invalid">
+                                                            <p class="help-block"
+                                                                ng-show="editFormInterv.nbreJour.$error.required">
+                                                                    Ce champs est obligatoire.
+                                                            </p>
+                                                            <p class="help-block"
+                                                                ng-show="editFormInterv.nbreJour.$error.number">
+                                                                    Ce champs doit être un nombre.
+                                                            </p>
+                                                    </div>
+                                            </div>
+                                            <!-- Montant -->
+                                            <div class="form-group">
+                                                    <label>Montant</label>
+                                                    <input type="number" class="form-control" name="montant"
+                                                                ng-model="intervention.montant" placeholder="{{intervention.montant }}" required>
+
+                                                    <div ng-show="editFormInterv.montant.$invalid">
+                                                            <p class="help-block"
+                                                                ng-show="editFormInterv.montant.$error.required">
+                                                                    Ce champs est obligatoire.
+                                                            </p>
+                                                            <p class="help-block"
+                                                                ng-show="editFormInterv.montant.$error.number">
+                                                                    Ce champs doit être un nombre.
+                                                            </p>
+                                                    </div>
+                                            </div>
+                                            
+                                            <!-- Montant Deplacement -->
+                                            <div class="form-group">
+                                                    <label>Montant Deplacement</label>
+                                                    <input type="number" class="form-control" name="montantDeplacement"
+                                                                ng-model="intervention.montantDeplacement" placeholder="{{intervention.montantDeplacement}}">
+
+                                            </div>
+                                            
+                                            
+                                    </div>
+                                    <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearIntervention()">
+                                                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                                            </button>
+                                            <button type="submit" ng-disabled="editFormInterv.$invalid" class="btn btn-primary">
+                                                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Enregistrer</span>
+                                            </button>
+                                    </div>
+                            
+                            </form>
+                    </div>
+            </div>
+    </div>
+    
+    <div class="modal fade" id="saveAchatModal" tabindex="-1" role="dialog" aria-labelledby="myAchatLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                    <div class="modal-content">
+                            <form name="editFormAchat" role="form" novalidate ng-submit="createAchat()" show-validation>
+                                    
+                                    <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                                            ng-click="clearAchat()">&times;</button>
+                                            <h4 class="modal-title" id="myAchatLabel">Créer et éditer Achat</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                            
+                                            <!-- Type -->
+                                            <div class="form-group">
+                                                    <label>Type Achat</label>
+                                                    <select class="form-control" name="typeachat" ng-model="achat.typeachat.id" ng-options="typeachat.id as typeachat.type for typeachat in typeachats">
+                                                    </select>
+                                            </div>
+                                            
+                                            <!-- Nom -->
+                                            <div class="form-group">
+                                                    <label>Nom</label>
+                                                    <input type="text" class="form-control" name="nom"
+                                                                ng-model="achat.nom" required>
+
+                                                    <div ng-show="editFormAchat.nom.$invalid">
+                                                            <p class="help-block"
+                                                                ng-show="editFormAchat.nom.$error.required">
+                                                                    Ce champs est obligatoire.
+                                                            </p>
+                                                    </div>
+                                            </div>
+                                            
+                                            <!-- nbreHeure -->
+                                            <div class="form-group">
+                                                    <label>NbreHeure</label>
+                                                    <input type="number" class="form-control" name="nbreHeure"
+                                                                ng-model="achat.nbreHeure" ng-readonly="AchatNbreHeureDisabled" >
+                                            </div>
+                                            
+                                            <!-- tauxHoraire -->
+                                            <div class="form-group">
+                                                    <label>tauxHoraire</label>
+                                                    <input type="number" class="form-control" name="tauxHoraire"
+                                                                ng-model="achat.tauxHoraire" ng-readonly="AchatNbreHeureDisabled" >
+                                            </div>
+                                            
+                                            <!-- Montant -->
+                                            <div class="form-group">
+                                                    <label>Montant</label>
+                                                    <input type="number" class="form-control" name="montant"
+                                                                ng-model="achat.montant" placeholder="{{achat.montant}}" required>
+
+                                                    <div ng-show="editFormAchat.montant.$invalid">
+                                                            <p class="help-block"
+                                                                ng-show="editFormAchat.montant.$error.required">
+                                                                    Ce champs est obligatoire.
+                                                            </p>
+                                                            <p class="help-block"
+                                                                ng-show="editFormAchat.montant.$error.number">
+                                                                    Ce champs doit être un nombre.
+                                                            </p>
+                                                    </div>
+                                            </div>
+
+                                            
+                                            
+                                    </div>
+                                    <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearAchat()">
+                                                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                                            </button>
+                                            <button type="submit" ng-disabled="editFormAchat.$invalid" class="btn btn-primary">
+                                                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Enregistrer</span>
+                                            </button>
+                                    </div>
+                            </form>
+                    </div>
+            </div>
+    </div>
+                                            
+    <div class="modal fade" id="deleteAchatConfirmation">
+            <div class="modal-dialog">
+                    <div class="modal-content">
+                            <form name="deleteForm" ng-submit="confirmDeleteAchat(achat.id)">
+                                    <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                                            ng-click="clear()">&times;</button>
+                                            <h4 class="modal-title">Confirmer la suppression</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                            <p>Etes vous sûr de vouloir supprimmer cette achat?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearAchat()">
+                                                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                                            </button>
+                                            <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                                                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Supprimmer</span>
+                                            </button>
+                                    </div>
+                            </form>
+                    </div>
+            </div>
+    </div>
+    
+    <div class="modal fade" id="saveBonfactureModal" tabindex="-1" role="dialog" aria-labelledby="myBonfactureLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                    <div class="modal-content">
+                            <form name="editFormBonFact" role="form" novalidate ng-submit="createBonFacture()" show-validation>
+
+                                    <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myBonfactureLabel">Numéro Bon Livraison</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                    
+                                            <div class="form-group">
+                                                    <label>Num Bon de Facture</label>
+                                                    <input type="text" class="form-control" name="numBonCommande"
+                                                                ng-model="bonfacture.nom" placeholder="bonfacture.nom" required>	
+                                            </div>	
+                                            <div class="form-group">
+                                                    <label>Montant</label>
+                                                    <input type="number" class="form-control" name="montant" 
+                                                            ng-model="bonfacture.montant" placeholder="bonfacture.montant" required>
+                                            </div>
+                                            
+                                    </div>
+                                    <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearBonFacture()">
+                                                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                                            </button>
+                                            <button type="submit" ng-disabled="editFormBonFact.$invalid" class="btn btn-primary">
+                                                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Enregistrer</span>
+                                            </button>
+                                    </div>
+                            
+                            </form>
+                    </div>
+            </div>
+    </div>
+
+<div ng-repeat="date in dates">
+    
+    <div class="panel-group" id="accordion">
+            <div class="panel panel-default" id="panel{{ date | date : 'MM-yyyy' }}">
+                    <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-target="#collapse{{ date | date : 'MM-yyyy' }}" >
+                                    <div style="margin-left: auto; margin-right: auto;">
+                                            <p style="text-align: center;">{{ date | date : 'MMMM-yyyy' }}</p>
+                                    </div>
+                                    </a>
+                                </h4>
+
+                    </div>
+                    <div id="collapse{{ date | date : 'MM-yyyy' }}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                    <div class="row" style="display: inline-block;">
+            
+                                    <div class="container-fluid col-md-6">
+                                            <!-- Interventions -->
+                                            <h4>Main d’Oeuvre</h4>
+                                            
+                                            
+                                            <div class="table-responsive">
+                                            <table id="interventionTable" class="table table-striped">
+                                                            <thead>
+                                                                    <tr>
+                                                                            <th>Salarié</th>
+                                                                            <th>Type</th>
+                                                                            <th>NbreHeure</th>
+                                                                            <th>TauxHoraire</th>
+                                                                            <th>Montant</th>
+                                                                            <th>NbreJour</th>
+                                                                            <th>Frais Deplacement</th>
+                                                                            <th></th>
+                                                                    </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                    <tr ng-repeat="intervention in interventions" ng-show="shouldHide(date,intervention.date)">
+                                                                            <td><a ui-sref="salarieDetail({id:intervention.salarie.id})">{{intervention.salarie.nom}}</a></td>
+                                                                            <td>{{intervention.typeintervention.type}}</td>
+                                                                            <td>{{intervention.nbreHeure}}</td>
+                                                                            <td>{{intervention.tauxHoraire}}</td>
+                                                                            <td>{{intervention.montant}}</td>
+                                                                            <td>{{intervention.nbreJour}}</td>
+                                                                            <td>{{intervention.montantDeplacement}}</td>
+                                                                            <td>
+                                                                                    <button type="submit"
+                                                                                                    ui-sref="menuPointage({id:intervention.salarie.id})"
+                                                                                                    class="btn btn-info btn-sm">
+                                                                                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span>Pointage</span>
+                                                                                    </button>
+                                                                                    <button type="submit"
+                                                                                                    ng-click="updateIntervention(intervention.id)"
+                                                                                                    class="btn btn-primary btn-sm">
+                                                                                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span>Editer</span>
+                                                                                    </button>
+                                                                            </td>
+                                                                    </tr>
+                                                            </tbody>
+                                            </table>
+                                            
+                                    </div>
+                                    
+                                    </div>
+                                    
+                                    <div class="container-fluid col-md-6">
+                                            
+                                            <!-- Achats -->
+                                            <div class="row" style="display: in-block">
+                                                            <div class="col-md-2">
+                                                                    <h4>Achats</h4>
+                                                            </div>	
+                                                            <div class="col-md-4">
+                                                                    <div class="container">
+                                                                            <button class="btn btn-primary" data-toggle="modal" data-target="#saveAchatModal" ng-click="setDateAndClearAchat(date)">
+                                                                                    <span class="glyphicon glyphicon-flash"></span> <span>Nouvel Achat</span>
+                                                                            </button>				
+                                                                    </div>
+                                                            </div>
+                                                            
+                                            </div>
+                                            
+                                            
+                                            <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                            <thead>
+                                                                    <tr>
+                                                                            <th>Nom</th>
+                                                                            <th>Type</th>
+                                                                            <th>Montant</th>
+                                                                            <th>NbreHeure</th>
+                                                                            <th>tauxHoraire</th>
+                                                                            <th></th>
+                                                                    </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                    <tr ng-repeat="achat in achats" ng-show="shouldHide(date,achat.date)">
+                                                                            <td>{{achat.nom}}</td>
+                                                                            <td>{{achat.typeachat.type}}</td>
+                                                                            <td>{{achat.montant}}</td>
+                                                                            <td>{{achat.nbreHeure}}</td>
+                                                                            <td>{{achat.tauxHoraire}}</td>
+                                                                            <td>
+                                                                                    <button type="submit"
+                                                                                                    ng-click="updateAchat(achat.id)"
+                                                                                                    class="btn btn-primary btn-sm">
+                                                                                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Editer</span>
+                                                                                    </button>
+                                                                                    <button type="submit"
+                                                                                                    ng-click="deleteAchat(achat.id)"
+                                                                                                    class="btn btn-danger btn-sm">
+                                                                                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Supprimmer</span>
+                                                                                    </button>
+                                                                            </td>
+                                                                    </tr>
+                                                            </tbody>
+                                                    </table>
+                                                    
+                                                    
+                                            </div>
+                                            
+                                    </div>
+                            
+                            </div>
+                                    <div class="row" style="display: in-block">
+                                            <div class="container-fluid col-md-6 ">
+                                                                    <div class="table-responsive">
+                                                                            
+                                                                            <table class="table table-striped" >
+                                                                            <thead>	
+                                                                                    <tr>
+                                                                                            <th>Correction Total Interventions</th>
+                                                                                            <th></th>
+                                                                                    </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                    <tr ng-repeat="montantcorrige in montantcorriges" ng-show="shouldHide(date,montantcorrige.date)">
+                                                                                                    
+                                                                                                    <td>
+                                                                                                            <form name="editFormMontantCorr" role="form" novalidate ng-submit="updateMontantCorrige(montantcorrige.id)">
+                                                                                                                    <div class="col-md-6 ">
+                                                                                                                    <div class="row ">
+                                                                                                                            <div class="form-group col-sm-7">
+                                                                                                                                    <input type="number" class="form-control" name="montantInterCorr" ng-model="montantcorrige.montantInterCorr" placeholder="montantcorrige.montantInterCorr" required>
+                                                                                                                            </div>
+                                                                                                                            <div class="form-group col-sm-5">
+                                                                                                                                    <button type="submit" ng-disabled="editFormMontantCorr.$invalid" class="btn btn-primary">
+                                                                                                                                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span>Corriger</span>
+                                                                                                                                    </button>
+                                                                                                                            </div>
+                                                                                                                    </div>
+                                                                                                                    </div>
+                                                                                                            </form>
+                                                                                                    </td>
+                                                                                            
+                                                                                    </tr>
+                                                                            </tbody>
+                                                                            </table>
+                                                                    </div>
+                                                            </div>
+                                            
+                                            <div class="container-fluid col-md-6 ">
+                                                                    <div class="table-responsive">
+                                                                            <table class="table table-striped" >
+                                                                            <thead>	
+                                                                                    <tr>
+                                                                                            <th>Correction Total Achats</th>
+                                                                                    </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                    <tr ng-repeat="montantcorrige in montantcorriges" ng-show="shouldHide(date,montantcorrige.date)">
+                                                                                                    
+                                                                                                    <td>
+                                                                                                            <form name="editFormMontantCorr" role="form" novalidate ng-submit="updateMontantCorrige(montantcorrige.id)">
+                                                                                                                    <div class="col-md-6 ">
+                                                                                                                    <div class="row ">
+                                                                                                                            <div class="form-group col-sm-7">
+                                                                                                                                    <input type="number" class="form-control" name="montantAchatCorr" ng-model="montantcorrige.montantAchatCorr" placeholder="montantcorrige.montantAchatCorr" required>
+                                                                                                                            </div>
+                                                                                                                            <div class="form-group col-sm-5">
+                                                                                                                                    <button type="submit" ng-disabled="editFormMontantCorr.$invalid" class="btn btn-primary">
+                                                                                                                                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span>Corriger</span>
+                                                                                                                                    </button>
+                                                                                                                            </div>
+                                                                                                                    </div>
+                                                                                                                    </div>
+                                                                                                            </form>
+                                                                                                    </td>
+                                                                                            
+                                                                                    </tr>
+                                                                            </tbody>
+                                                                            </table>
+                                                                    </div>
+                                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+    </div>
+    
+    <!-- CA -->
+    <div class="table-responsive">
+            <table class="table table-striped">
+                    <thead>
+                            <tr>
+                                    <th>CA/mois</th>
+                                    <th>Montant Facturé</th>
+                                    <th>Montant En cours</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                    <td ng-repeat="ca in caMois" ng-show="shouldHideInterne(date,ca.date)" >
+                                            {{ca.montant}}
+                                    </td>
+                                    
+                                    <td ng-repeat="bonfacture in bonfactures" ng-show="shouldHide(date,bonfacture.date)">
+                                            
+                                            
+                                            <form name="editFormBonFacture" role="form" novalidate ng-submit="updateBonFacture(bonfacture.id)">
+                                                    <div class="col-md-6 ">
+                                                    <div class="row ">
+                                                            <div class="form-group col-sm-7">
+                                                                    {{bonfacture.montant}}
+                                                            </div>
+                                                            <div class="form-group col-sm-5">
+                                                                    <button type="submit" ng-disabled="editFormBonFacture.$invalid" class="btn btn-primary">
+                                                                            <span class="glyphicon glyphicon-euro"></span>&nbsp;<span>Facturer</span>
+                                                                    </button>
+                                                            </div>
+                                                    </div>
+                                                    </div>
+                                            </form>
+                                    
+                                    </td>
+                                    
+                                    <td ng-repeat="me in montantEnCours" ng-show="shouldHideInterne(date,me.date)">
+                                            {{me.montant}}
+                                    </td>
+                                    <td>
+                                            <button ng-click="exportToWord()" 
+                                                            class="btn btn-link"  >
+                                                    <span class="glyphicon glyphicon-share"></span><span> Bon Livraison </span>
+                                            </button>
+                                    </td>
+                            </tr>
+                    </tbody>
+            </table>
+    </div>
+    
+</div>
+
+<button type="submit" ui-sref="affaire" class="btn btn-info">
+	<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span>retour</span>
+</button>
+
+</br>
+	
+<table id="summary" class="" cellspacing="0" border="1" hidden><tbody>
+<tbody>
+	<tr style="height:21px;">
+	<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="font-family:Arial;text-align:right;font-size:12px;font-weight:bold;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Client</nobr></td>
+	<td style="font-family:Arial;text-align:center;font-size:12px;font-weight:bold;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>{{affaire.client.nom}}</nobr></td>
+	<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="font-family:Arial;text-align:right;font-size:12px;font-weight:bold;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Commande</nobr></td>
+	<td style="font-family:Arial;text-align:center;font-size:12px;font-weight:bold;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px" ng-repeat="commande in commandes"><nobr>{{commande.codeCommande}}</nobr></td></tr>
+	<tr style="height:21px;">
+	<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="font-family:Arial;text-align:right;font-size:12px;font-weight:bold;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Code Affaire Interne</nobr></td>
+	<td style="font-family:Arial;text-align:center;font-size:12px;font-weight:bold;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>{{affaire.codeAffaire}}</nobr></td>
+	<td style="font-family:Arial;text-align:center;font-size:12px;font-weight:bold;min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="font-family:Arial;text-align:center;font-size:12px;min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="font-family:Arial;text-align:right;font-size:12px;font-weight:bold;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Montant</nobr></td>
+	<td style="text-align:right;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px" ng-repeat="commande in commandes"><nobr>{{commande.montant}}€</nobr></td></tr>
+</tbody>
+
+<tr style="height:21px;">
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:12px;font-weight:bold;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:center;font-size:12px;font-weight:bold;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:center;font-size:12px;font-weight:bold;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:center;font-size:12px;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:center;font-size:12px;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:center;font-size:12px;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:center;font-size:10px;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:center;font-size:12px;font-weight:bold;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:center;font-size:12px;font-weight:bold;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td></tr>
+
+<tbody ng-repeat="date in dates">
+	<tr style="height:21px;">
+	<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="font-family:Arial;text-align:right;font-size:12px;font-weight:bold;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Intervenant</nobr></td>
+	<td style="font-family:Arial;text-align:center;font-size:12px;font-weight:bold;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Type</nobr></td>
+	<td style="font-family:Arial;text-align:center;font-size:12px;font-weight:bold;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Taux journalier</nobr></td>
+	<td style="font-family:Arial;text-align:center;font-size:12px;font-weight:bold;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Taux horaire</nobr></td>
+	<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td></tr>
+	<tr style="height:17px;" ng-repeat="intervention in interventions" ng-show="shouldHide(date,intervention.date)">
+	<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="font-family:Arial;text-align:right;font-size:9px;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>{{intervention.salarie.nom}} {{intervention.salarie.prenom}}</nobr></td>
+	<td style="text-align:center;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>{{intervention.typeintervention.type}}</nobr></td>
+	<td style="text-align:center;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>{{intervention.tauxHoraire * intervention.nbreJour}} €/j</nobr></td>
+		<td style="text-align:center;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>{{intervention.tauxHoraire}}€/h</nobr></td>
+	<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td>
+	<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td></tr>
+
+
+<tr style="height:18px;">
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;min-width:50px"><nobr>&nbsp;</nobr></td></tr>
+
+<tr style="height:35px;">
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;border-left:2px solid;border-right:1px solid;border-top:2px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;min-width:50px"><nobr>Mois</nobr></td>
+<td style="text-align:center;border-left:1px solid;border-right:1px solid;border-top:2px solid;border-bottom:2px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Intervenants</nobr></td>
+<td style="text-align:center;border-left:1px solid;border-right:1px solid;border-top:2px solid;border-bottom:2px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Type Intervention</nobr></td>
+<td style="text-align:center;border-left:1px solid;border-right:1px solid;border-top:2px solid;border-bottom:2px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Nombre de jours effectuées</nobr></td>
+<td style="text-align:center;border-left:1px solid;border-right:1px solid;border-top:2px solid;border-bottom:2px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Heures effectuées</nobr></td>
+<td style="text-align:center;border-left:1px solid;border-right:1px solid;border-top:2px solid;border-bottom:2px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Taux horaire</nobr></td>
+<td style="text-align:center;border-left:1px solid;border-right:1px solid;border-top:2px solid;border-bottom:2px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Montant à facturer</nobr></td>
+<td style="text-align:center;border-left:1px solid;border-right:1px solid;border-top:2px solid;border-bottom:2px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Montant facturé</nobr></td>
+<td style="text-align:center;border-left:1px solid;border-right:2px solid;border-top:2px solid;border-bottom:2px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>En cours</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td></tr>
+
+
+	
+<tr style="height:17px;">
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:center;font-size:10px;border-left:2px solid;border-right:1px solid;border-top:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;min-width:50px" rowspan="{{nbreInterByMonth(date) +2 }}"><nobr> {{ date | date : 'MM-yyyy' }}</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:1px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;border-left:1px solid;border-right:1px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:1px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:1px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:1px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:2px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td></tr>
+<tr style="height:17px;" ng-repeat="intervention in interventions" ng-show="shouldHide(date,intervention.date)">
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:1px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>{{intervention.salarie.nom}} {{intervention.salarie.prenom}}</nobr></td>
+<td style="text-align:center;border-left:1px solid;border-right:1px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>{{intervention.typeintervention.type}}</nobr></td>
+<td style="text-align:center;border-left:1px solid;border-right:1px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>{{intervention.nbreJour}}j</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:1px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>{{intervention.nbreHeure}}h</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:10px;color:#0000FF;border-left:1px solid;border-right:1px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>{{intervention.tauxHoraire}}€/h</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:10px;color:#0000FF;border-left:1px solid;border-right:1px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>{{intervention.montant}}€</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:2px solid;border-left-color:#000000;border-right-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td></tr>
+<tr style="height:17px;">
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:center;font-size:10px;color:#000000;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:10px;color:#000000;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:10px;color:#000000;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:10px;color:#000000;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:10px;color:#000000;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:10px;color:#0000FF;border-left:1px solid;border-right:2px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr ng-repeat="bonfacture in bonfactures" ng-show="shouldHide(date,bonfacture.date)">{{bonfacture.montant}}€</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:10px;color:#0000FF;border-left:1px solid;border-right:2px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr ng-repeat="me in montantEnCours" ng-show="shouldHideInterne(date,me.date)">{{me.montant}}€</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td></tr>
+
+
+
+</tbody>
+
+<tr style="height:18px;">
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;border-left:2px solid;border-right:1px solid;border-bottom:2px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:center;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:10px;color:#0000FF;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:10px;color:#0000FF;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:10px;color:#0000FF;border-left:1px solid;border-right:2px solid;border-bottom:1px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="font-family:Arial;text-align:right;font-size:10px;font-style:italic;min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td></tr>
+
+<tr style="height:18px;">
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:2px solid;border-right:1px solid;border-bottom:2px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Total</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:2px solid;border-right:1px solid;border-bottom:2px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>{{totalNbreHeure()}}h</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;border-left:1px solid;border-right:1px solid;border-bottom:2px solid;border-left-color:#000000;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>{{totalMontantInterv()}}€</nobr></td>
+<td style="text-align:right;border-right:2px solid;border-bottom:2px solid;border-right-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>{{totalBonFacture()}}€</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td></tr>
+<tr style="height:0px;">
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td></tr>
+<tr style="height:17px;">
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="text-align:right;background-color:#FFFFFF;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>Solde</nobr></td>
+<td style="text-align:right;background-color:#FFFFFF;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>{{ totalCommandes - totalMontantInterv()}}€</nobr></td>
+<td style="text-align:right;background-color:#FFFFFF;border:1px solid;border-left-color:#000000;border-right-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px"><nobr>{{totalMontantInterv()- totalBonFacture()}}€</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td>
+<td style="min-width:50px"><nobr>&nbsp;</nobr></td></tr>
+
+</tbody></table>
+
+
+<div id="word" hidden>
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+
+	<br />
+<p><b>BON DE FACTURATION</b></p>
+
+<p><b>Société : GRUP</b></p>
+
+<p><b>Adresse : Bvd Blaise Pascal 42230 ROCHE LA MOLIERE </b></p>
+
+<p><b>A l’attention de M. N.BOYER</b></p>
+
+<p><b>N/Réf : DFO/13/283</b></p>
+
+<p><b>Date : 30/04/2013</b></p>
+
+<table border="1" cellspacing="0" cellpadding="0" > 
+<tbody>
+<tr>
+<td valign="top" ><p><b>Réf. Commande client</b></p></td>
+<td valign="top" ><p><b>N° d’affaire Asercao</b></p></td>
+<td valign="top" ><p><b>Interlocuteur Asercao</b></p></td>
+</tr>
+
+<tr>
+<td><p>468162</p></td>
+<td><p>M2398</p></td>
+<td><p>David FOURNEL</p></td>
+</tr>
+
+</tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="0" > 
+<tbody>
+<tr>
+<td valign="top" ><p><b>Lot/Réf.</b></p></td>
+<td valign="top" ><p><b>Désignation</b></p></td>
+<td valign="top" ><p><b>Qté</b></p></td>
+<td valign="top" ><p><b>Prix unitaire</b></p></td>
+<td valign="top" ><p><b>Montant total</b></p></td>
+</tr>
+
+<tr>
+<td valign="top" > </td>
+<td valign="top" > </td>
+<td valign="top" > </td>
+<td valign="top" > </td>
+<td valign="top" > </td>
+</tr>
+
+<tr>
+<td valign="top" > </td>
+<td valign="top" > </td>
+<td valign="top" > </td>
+<td valign="top" ><p><b>Montant total HT</b></p></td>
+<td valign="top" > </td>
+</tr>
+
+</tbody>
+</table>
+	
+</body>
+</html>
+</div>
+
+</div>

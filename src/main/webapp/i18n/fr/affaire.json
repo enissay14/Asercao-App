@@ -1,0 +1,31 @@
+{
+    "appApp": {
+        "affaire" : {
+            "home": {
+                "title": "Affaires",
+                "createLabel": "Créer un nouveau Affaire",
+                "createOrEditLabel": "Créer ou éditer un Affaire"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Affaire {{ id }} ?"
+            },
+            "detail": {
+                "title": "Affaire"
+            },
+            "codeAffaire": "CodeAffaire",
+            "description": "Description",
+            "respClient": "RespClient",
+            "dateDebut": "DateDebut",
+            "dateFin": "DateFin",
+            "client": "client",
+            "typeaffaire": "typeaffaire",
+            "statusaffaire": "statusaffaire",
+            "bonfacture": "bonfacture",
+            "intervention": "intervention",
+            "achat": "achat",
+            "commande": "commande",
+            "devis": "devis"
+        }
+    }
+}
+

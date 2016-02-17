@@ -1,0 +1,9 @@
+{
+    "main": {
+        "title": "Bienvenue, RDP version dev 1.1",
+        "subtitle": "Ceci est votre page d'accueil",
+        "logged": {
+            "message": "Vous êtes connecté en tant que \"{{username}}\"."
+        }
+    }
+}

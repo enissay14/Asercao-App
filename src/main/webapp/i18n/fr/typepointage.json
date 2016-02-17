@@ -1,0 +1,20 @@
+{
+    "appApp": {
+        "typepointage" : {
+            "home": {
+                "title": "Typepointages",
+                "createLabel": "Créer un nouveau Typepointage",
+                "createOrEditLabel": "Créer ou éditer un Typepointage"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Typepointage {{ id }} ?"
+            },
+            "detail": {
+                "title": "Typepointage"
+            },
+            "type": "Type",
+            "pointage": "pointage"
+        }
+    }
+}
+

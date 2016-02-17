@@ -1,0 +1,20 @@
+{
+    "appApp": {
+        "typeaffaire" : {
+            "home": {
+                "title": "Typeaffaires",
+                "createLabel": "Créer un nouveau Typeaffaire",
+                "createOrEditLabel": "Créer ou éditer un Typeaffaire"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Typeaffaire {{ id }} ?"
+            },
+            "detail": {
+                "title": "Typeaffaire"
+            },
+            "type": "Type",
+            "affaire": "affaire"
+        }
+    }
+}
+

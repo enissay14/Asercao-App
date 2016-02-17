@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <!--
+        Added the entity Intervention.
+    -->
+    <changeSet id="20150516181708" author="jhipster">
+        <createTable tableName="INTERVENTION">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nbre_heure" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="taux_horaire" type="bigint"/>
+            <column name="nbre_jour" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="montant" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="montant_corr" type="bigint"/>
+            <column name="montant_deplacement" type="bigint"/>
+            <column name="date_debut" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="date_fin" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="salarie_id" type="bigint"/>
+            <column name="affaire_id" type="bigint"/>
+            <column name="typeintervention_id" type="bigint"/>
+        </createTable>
+        
+        <addForeignKeyConstraint baseColumnNames="salarie_id"
+                                 baseTableName="INTERVENTION"
+                                 constraintName="fk_intervention_salarie_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="SALARIE"/>
+
+        <addForeignKeyConstraint baseColumnNames="affaire_id"
+                                 baseTableName="INTERVENTION"
+                                 constraintName="fk_intervention_affaire_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="AFFAIRE"/>
+
+        <addForeignKeyConstraint baseColumnNames="typeintervention_id"
+                                 baseTableName="INTERVENTION"
+                                 constraintName="fk_intervention_typeintervention_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="TYPEINTERVENTION"/>
+
+    </changeSet>
+</databaseChangeLog>

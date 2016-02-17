@@ -1,0 +1,82 @@
+
+<div>
+    <h2><span>Salarié:</span> {{salarie.nom}} {{salarie.prenom}}</h2>
+	
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Champ</th>
+                    <th>Valeur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span>Nom</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{salarie.nom}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Prenom</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{salarie.prenom}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Email</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{salarie.email}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Tel</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{salarie.tel}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Adresse</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{salarie.adresse}}" readonly>
+                    </td>
+                </tr>
+				<tr>
+                    <td>
+                        <span>Cout Revient</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{salarie.coutRevient}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Status</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{salarie.statussalaire.status}}" readonly>
+                    </td>
+                </tr>
+				
+            </tbody>
+        </table>
+    </div>
+	
+	
+
+	<button type="submit"
+            ui-sref="salarie"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Retour</span>
+    </button>
+</div>

@@ -1,0 +1,20 @@
+{
+    "appApp": {
+        "distance" : {
+            "home": {
+                "title": "Distances",
+                "createLabel": "Create a new Distance",
+                "createOrEditLabel": "Create or edit a Distance"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Distance {{ id }}?"
+            },
+            "detail": {
+                "title": "Distance"
+            },
+            "distance": "Distance",
+            "bareme": "Bareme",
+            "client": "client"
+        }
+    }
+}

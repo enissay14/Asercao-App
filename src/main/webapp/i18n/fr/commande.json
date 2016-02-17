@@ -1,0 +1,23 @@
+{
+    "appApp": {
+        "commande" : {
+            "home": {
+                "title": "Commandes",
+                "createLabel": "Créer un nouveau Commande",
+                "createOrEditLabel": "Créer ou éditer un Commande"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Commande {{ id }} ?"
+            },
+            "detail": {
+                "title": "Commande"
+            },
+            "codeCommande": "CodeCommande",
+            "montant": "Montant",
+            "montantAchat": "MontantAchat",
+            "date": "Date",
+            "affaire": "affaire"
+        }
+    }
+}
+

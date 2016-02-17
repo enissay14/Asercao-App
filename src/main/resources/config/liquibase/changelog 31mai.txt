@@ -1,0 +1,52 @@
+<changeSet author="MW (generated)" id="1432945576155-1">
+      <addColumn tableName="intervention">
+			<column name="taux_horaire" type="bigint"/>
+		</addColumn>
+		<addColumn tableName="achat">
+			<column name="description" type="varchar(255)">
+            </column>
+		</addColumn>
+		<addColumn tableName="achat">
+			<column name="taux_horaire" type="bigint">
+            </column>
+			<column name="nbre_heure" type="bigint">
+            </column>
+		</addColumn>
+		<addColumn tableName="affaire">
+			<column name="respAffaire" type="varchar(255)">
+            </column>
+			<column name="sauvegarde" type="varchar(255)"/>
+		</addColumn>
+		<addColumn tableName="bonfacture">
+			<column name="nom" type="varchar(255)">
+            </column>
+		</addColumn>
+   </changeSet> 
+   
+   <changeSet author="yassine" id="change_from_bigfloat_to_float">
+		<modifyDataType  tableName="achat" columnName="montant" newDataType="float" />
+		<modifyDataType  tableName="achat" columnName="taux_horaire" newDataType="float" />
+		<modifyDataType  tableName="achat" columnName="nbre_heure" newDataType="float" />
+		<modifyDataType  tableName="affaire" columnName="taux_horaire" newDataType="float" />
+		<modifyDataType  tableName="bonfacture" columnName="montant" newDataType="float" />
+		<modifyDataType  tableName="commande" columnName="montant" newDataType="float" />
+		<modifyDataType  tableName="commande" columnName="nbre_heure" newDataType="float" />
+		<addColumn tableName="commande">
+			<column name="montant_achat" type="float"/>
+		</addColumn>
+		<modifyDataType  tableName="distance" columnName="bareme" newDataType="float" />
+		<modifyDataType  tableName="intervention" columnName="nbre_heure" newDataType="float" />
+		<modifyDataType  tableName="intervention" columnName="nbre_jour" newDataType="float" />
+		<modifyDataType  tableName="intervention" columnName="montant" newDataType="float" />
+		<modifyDataType  tableName="intervention" columnName="montant_deplacement" newDataType="float" />
+		<modifyDataType  tableName="intervention" columnName="taux_horaire" newDataType="float" />
+		<modifyDataType  tableName="montantcorrige" columnName="montant_inter_corr" newDataType="float" />
+		<modifyDataType  tableName="montantcorrige" columnName="montant_achat_corr" newDataType="float" />
+		<modifyDataType  tableName="pointage" columnName="nbre_heure" newDataType="float" />
+		<modifyDataType  tableName="salarie" columnName="cout_revient" newDataType="float" />
+		
+	</changeSet> 
+	
+	<changeSet author="yassine" id="drop_code_client">
+		<dropColumn columnName="code_client" tableName="client"/>
+	</changeSet>

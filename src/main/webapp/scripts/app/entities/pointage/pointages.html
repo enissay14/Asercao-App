@@ -1,0 +1,135 @@
+<div>
+
+    <h2>Pointage</h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#savePointageModal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-flash"></span> <span>Nouvelle ligne</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="savePointageModal" tabindex="-1" role="dialog" aria-labelledby="myPointageLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate ng-submit="create()" show-validation>
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myPointageLabel" >C</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="form-control" name="typepointage" ng-model="pointage.typepointage.id" ng-options="typepointage.id as typepointage.type for typepointage in typepointages">
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label >NbreHeure</label>
+                            <input type="number" class="form-control" name="nbreHeure"
+                                   ng-model="pointage.nbreHeure" required min="0">
+
+                            <div ng-show="editForm.nbreHeure.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.nbreHeure.$error.required">
+                                    ce champs est obligaotire.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.nbreHeure.$error.min">
+                                    Ce champs doit être positif.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.nbreHeure.$error.number" >
+                                    Ce champs doit être un nombre.
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Sauvegarder</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deletePointageConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(pointage.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title">Confirmer la suppression</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Etes vous sûr de vouloir effacer cette ligne?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Supprimmer</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>typepointage</th>
+					<th>NbreHeure</th>
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pointage in pointages">
+					<td>{{pointage.typepointage.type}}</td>
+                    <td>{{pointage.nbreHeure}}</td>
+                    <td>{{pointage.date}}</td>
+                    
+                    <td>
+                        
+                        <button type="submit"
+                                ng-click="update(pointage.id)"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Editer</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(pointage.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Supprimmer</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pager">
+                <li ng-show="links['first']" ng-click="loadPage(links['first'])"><a href="#">&lt;&lt;</a></li>
+                <li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a href="#">&lt;</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a href="#">&gt;</a></li>
+                <li ng-show="links['last']" ng-click="loadPage(links['last'])"><a href="#">&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+
+	</div>

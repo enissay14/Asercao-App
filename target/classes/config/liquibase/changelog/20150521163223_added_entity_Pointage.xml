@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <!--
+        Added the entity Pointage.
+    -->
+    <changeSet id="20150521163223" author="jhipster">
+        <createTable tableName="POINTAGE">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nbre_heure" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="typepointage_id" type="bigint"/>
+            <column name="salarie_id" type="bigint"/>
+        </createTable>
+        
+        <addForeignKeyConstraint baseColumnNames="typepointage_id"
+                                 baseTableName="POINTAGE"
+                                 constraintName="fk_pointage_typepointage_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="TYPEPOINTAGE"/>
+
+        <addForeignKeyConstraint baseColumnNames="salarie_id"
+                                 baseTableName="POINTAGE"
+                                 constraintName="fk_pointage_salarie_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="SALARIE"/>
+
+    </changeSet>
+</databaseChangeLog>

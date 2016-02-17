@@ -1,0 +1,176 @@
+<div>
+
+    <h2>Salarié</h2>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div ng-class="{active: $state.includes('manager')}"  has-role="ROLE_MANAGER" class="col-md-4">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#saveSalarieModal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-flash"></span> <span>Créer nouveau Salarié</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="saveSalarieModal" tabindex="-1" role="dialog" aria-labelledby="mySalarieLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate ng-submit="create()" show-validation>
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="mySalarieLabel">Créer ou éditer un salarié</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label>Nom</label>
+                            <input type="text" class="form-control" name="nom"
+                                   ng-model="salarie.nom" required>
+
+                            <div ng-show="editForm.nom.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.nom.$error.required">
+                                    Ce champs est obligatoire.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Prénom</label>
+                            <input type="text" class="form-control" name="prenom"
+                                   ng-model="salarie.prenom" required>
+
+                            <div ng-show="editForm.prenom.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.prenom.$error.required">
+                                    Ce champs est obligatoire.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" name="email"
+                                   ng-model="salarie.email">
+
+                        </div>
+                        <div class="form-group">
+                            <label>Tel</label>
+                            <input type="number" class="form-control" name="tel"
+                                   ng-model="salarie.tel">
+
+                        </div>
+                        <div class="form-group">
+                            <label>Adresse</label>
+                            <input type="text" class="form-control" name="adresse"
+                                   ng-model="salarie.adresse">
+
+                        </div>
+                        
+                        <div class="form-group" has-role="ROLE_SUPERUSER">
+                            <label>Coût Revient</label>
+                            <input type="number" class="form-control" name="coutRevient"
+                                   ng-model="salarie.coutRevient">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status Salarié</label>
+                            <select class="form-control" name="statussalaire" ng-model="salarie.statussalaire.id" ng-options="statussalaire.id as statussalaire.status for statussalaire in statussalaires">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Sauvegarder</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteSalarieConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(salarie.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title">Confirmer la suppression</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Etes vous sûr de vouloir supprimmer le salarié {{salarie.nom}} {{salarie.prenom}}?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Supprimmer</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Status Salarié</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="salarie in salaries">
+                    <td>{{salarie.nom}}</td>
+                    <td>{{salarie.prenom}}</td>
+                    <td>{{salarie.statussalaire.status}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="menuPointage({id:salarie.id})"
+                                class="btn btn-info btn-sm" ng-disabled="inactif(salarie.statussalaire.status)">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span>Pointage</span>
+                        </button>
+						<button type="submit"
+                                ui-sref="salarieDetail({id:salarie.id})"
+                                class="btn btn-info btn-sm" ng-class="{active: $state.includes('manager')}"  has-role="ROLE_MANAGER">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span>Voir</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="update(salarie.id)"
+                                class="btn btn-primary btn-sm" ng-class="{active: $state.includes('manager')}"  has-role="ROLE_MANAGER">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Editer</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(salarie.id)"
+                                class="btn btn-danger btn-sm" ng-class="{active: $state.includes('manager')}"  has-role="ROLE_MANAGER">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Supprimmer</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pager">
+                <li ng-show="links['first']" ng-click="loadPage(links['first'])"><a href="#">&lt;&lt;</a></li>
+                <li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a href="#">&lt;</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a href="#">&gt;</a></li>
+                <li ng-show="links['last']" ng-click="loadPage(links['last'])"><a href="#">&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <button type="submit" ui-sref="home" class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span>Retour</span>
+    </button>
+    
+</div>

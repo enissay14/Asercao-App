@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+   <changeSet author="MW (generated)" id="1432945576155-1">
+      <addColumn tableName="intervention">
+			<column name="taux_horaire" type="bigint"/>
+		</addColumn>
+		<addColumn tableName="achat">
+			<column name="description" type="varchar(255)">
+            </column>
+		</addColumn>
+		<addColumn tableName="achat">
+			<column name="taux_horaire" type="bigint">
+            </column>
+			<column name="nbre_heure" type="bigint">
+            </column>
+		</addColumn>
+		<addColumn tableName="affaire">
+			<column name="respAffaire" type="varchar(255)">
+            </column>
+			<column name="sauvegarde" type="varchar(255)"/>
+		</addColumn>
+		<addColumn tableName="bonfacture">
+			<column name="nom" type="varchar(255)">
+            </column>
+		</addColumn>
+   </changeSet>
+</databaseChangeLog>

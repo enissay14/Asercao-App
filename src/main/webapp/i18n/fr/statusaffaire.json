@@ -1,0 +1,20 @@
+{
+    "appApp": {
+        "statusaffaire" : {
+            "home": {
+                "title": "Statusaffaires",
+                "createLabel": "Créer un nouveau Statusaffaire",
+                "createOrEditLabel": "Créer ou éditer un Statusaffaire"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Statusaffaire {{ id }} ?"
+            },
+            "detail": {
+                "title": "Statusaffaire"
+            },
+            "status": "Status",
+            "affaire": "affaire"
+        }
+    }
+}
+

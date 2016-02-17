@@ -1,0 +1,23 @@
+{
+    "appApp": {
+        "achat" : {
+            "home": {
+                "title": "Achats",
+                "createLabel": "Create a new Achat",
+                "createOrEditLabel": "Create or edit a Achat"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Achat {{ id }}?"
+            },
+            "detail": {
+                "title": "Achat"
+            },
+            "nom": "Nom",
+            "date": "Date",
+            "montant": "Montant",
+            "montantCorr": "MontantCorr",
+            "typeachat": "typeachat",
+            "affaire": "affaire"
+        }
+    }
+}

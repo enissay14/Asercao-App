@@ -1,0 +1,19 @@
+{
+    "appApp": {
+        "statusaffaire" : {
+            "home": {
+                "title": "Statusaffaires",
+                "createLabel": "Create a new Statusaffaire",
+                "createOrEditLabel": "Create or edit a Statusaffaire"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Statusaffaire {{ id }}?"
+            },
+            "detail": {
+                "title": "Statusaffaire"
+            },
+            "status": "Status",
+            "affaire": "affaire"
+        }
+    }
+}

@@ -1,0 +1,47 @@
+<div ng-cloak>
+    <div class="row">
+        <div class="col-md-4">
+            <span class="logo img-responsive img-rounded"></span>
+			<h1>Bienvenue, ASERCAO Gestion v2</h1>
+            <p class="lead" >Page d'Accueil</p>
+		</div>
+		
+        <div class="col-md-8">
+			
+			
+
+            <div ng-switch="isAuthenticated()" >
+                <div class="alert alert-success" ng-switch-when="true">
+                    Vous êtes connecté en tant que {{account.login}}.
+                </div>
+				
+				<div class="alert alert-warning" ng-switch-when="true" ui-sref-active="active">
+					<a ui-sref="salarie"><button type="button"  class="btn btn-primary" >
+						<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Pointage</span>
+					</button></a>
+					<a ui-sref="affaire"><button type="button"  class="btn btn-primary"  >
+						<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Suivi Affaire</span>
+					</button></a>
+					<a ui-sref="releve"><button type="button"  class="btn btn-primary"  >
+						<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Relevé d'heures mensuel</span>
+					</button></a>
+				</div>
+				
+				
+				
+                <div class="alert alert-warning" ng-switch-when="false">
+                    Si vous voulez vous <a href="#/login">authentifiez</a>, vous pouvez utilisez les trois compte par deault:
+					<br/>1. login="admin" and  password="admin".
+					<br/>2. login="manager" and password="manager". 
+					<br/>3. login="user" and password="user"
+                </div>
+
+                <div class="alert alert-warning" ng-switch-when="false" >
+                    Créer un nouveau compte? <a href=\"#/register\">S'enregistrer</a>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+</div>

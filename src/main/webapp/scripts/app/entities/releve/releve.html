@@ -1,0 +1,110 @@
+
+<div>
+	<h3><span>Relevé d'heures par mois:</span></h3>
+			
+	<div class="row" style="display: in-block">
+		<div class="col-md-2">
+			<h3> mois {{date | date : 'MMMM-yyyy' }}</h3>
+		</div>
+		<div class="col-md-2" style="padding-top: 20px; align: left">
+			<div id="date" class="input-append date" datetimez ng-model="date">
+			  <input data-format="MM-yyyy" type="text" id="input1" name="input1" placeholder="choisissez le mois"></input>
+			  <span class="add-on">
+				<i class="glyphicon glyphicon-calendar"></i>
+			  </span>
+			</div>
+		</div>
+	</div>
+		
+	
+	
+	<div class="table-responsive">
+		<table class="table table-striped">
+				<thead>
+					<tr>
+						<th></th>
+						<th align="center">Salarié</th>
+						<th align="center">Heures Oeuvrées</th>
+						<th align="center">nombre d’heures/affaire</th>
+						<th align="center">nombre d’heures supp/affaire</th>
+						<th align="center">Formation</th>
+						<th align="center">Qualite</th>
+						<th align="center">Devis</th>
+						<th align="center">Info</th>
+						<th align="center">Maladie</th>
+						<th align="right">RTT+Congés</th>
+					</tr>
+				</thead>
+				<tbody  ng-repeat="salarie in salariesTotal">
+					<tr  class="accordion-toggle">
+						<td>
+							<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#salarie{{salarie.id}}" >
+								<span class="glyphicon glyphicon-chevron-down"></span>&nbsp;
+							</button>
+						</td>
+						<td><a ui-sref="menuPointage({id:salarie.id})">{{salarie.nom}}</a></td>
+						<td align="center">{{salarie.totalOeuvre}}</td>
+						<td align="center">{{salarie.totalAffaire}}</td>
+						<td align="center">{{salarie.totalAffaireHS}}</td>
+						<td align="center">{{salarie.totalFormation}}</td>
+						<td align="center">{{salarie.totalQualite}}</td>
+						<td align="center">{{salarie.totalDevis}}</td>
+						<td align="center">{{salarie.totalInfo}}</td>
+						<td align="center">{{salarie.totalMaladie}}</td>
+						<td align="center">{{salarie.totalRTT}}</td>
+					</tr>
+					<tr >
+						<td colspan="12" class="hiddenRow">
+							<div class="accordian-body collapse" id="salarie{{salarie.id}}">  
+								<div class="table-responsive">
+									<table class="table table-striped">
+											<thead>
+												<tr>
+													<th>CodeAffaire</th>
+													<th>Client</th>
+													<th>Type</th>
+													<th>NbreHeure</th>
+													
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="intervention in monthInterventions" ng-show="shouldHideBySalarie(salarie.id,intervention.salarie.id)" >
+													<td><a ui-sref="affaireDetail({id:intervention.affaire.id})">{{intervention.affaire.codeAffaire}}</a></td>
+													<td>{{intervention.affaire.client.nom}}</td>
+													<td>{{intervention.typeintervention.type}}</td>
+													<td>{{intervention.nbreHeure}}</td>
+													
+												</tr>
+											</tbody>
+									</table>
+								</div>
+							</div> 
+						</td>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr>
+						<td></td>
+						<td>Totaux</td>
+						<td align="center">{{monthData.totalOeuvre}}</td>
+						<td align="center">{{monthData.totalAffaire}}</td>
+						<td align="center">{{monthData.totalAffaireHS}}</td>
+						<td align="center">{{monthData.totalFormation}}</td>
+						<td align="center">{{monthData.totalQualite}}</td>
+						<td align="center">{{monthData.totalDevis}}</td>
+						<td align="center">{{monthData.totalInfo}}</td>
+						<td align="center">{{monthData.totalMaladie}}</td>
+						<td align="center">{{monthData.totalRTT}}</td>
+					</tr>
+					
+				</tbody>
+			</table>
+	</div>
+    
+	
+	
+	<button type="submit" ui-sref="home" class="btn btn-info">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span>Retour</span>
+        </button>
+
+	</div>

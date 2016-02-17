@@ -1,0 +1,70 @@
+
+<div>
+    <h2><span translate="appApp.achat.detail.title">Achat</span> {{achat.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="entity.detail.field">Field</th>
+                    <th translate="entity.detail.value">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span translate="appApp.achat.nom">Nom</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{achat.nom}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.achat.date">Date</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{achat.date}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.achat.montant">Montant</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{achat.montant}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.achat.montantCorr">MontantCorr</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{achat.montantCorr}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.achat.typeachat">typeachat</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{achat.typeachat.type}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.achat.affaire">affaire</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{achat.affaire.codeAffaire}}" readonly>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            ui-sref="achat"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

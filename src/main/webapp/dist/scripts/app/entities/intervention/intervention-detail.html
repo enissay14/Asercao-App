@@ -1,0 +1,110 @@
+
+<div>
+    <h2><span translate="appApp.intervention.detail.title">Intervention</span> {{intervention.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="entity.detail.field">Field</th>
+                    <th translate="entity.detail.value">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span translate="appApp.intervention.nbreHeure">NbreHeure</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{intervention.nbreHeure}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.intervention.tauxHoraire">TauxHoraire</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{intervention.tauxHoraire}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.intervention.nbreJour">NbreJour</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{intervention.nbreJour}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.intervention.montant">Montant</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{intervention.montant}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.intervention.montantCorr">MontantCorr</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{intervention.montantCorr}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.intervention.montantDeplacement">MontantDeplacement</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{intervention.montantDeplacement}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.intervention.dateDebut">DateDebut</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{intervention.dateDebut}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.intervention.dateFin">DateFin</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{intervention.dateFin}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.intervention.salarie">salarie</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{intervention.salarie.nom}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.intervention.affaire">affaire</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{intervention.affaire.codeAffaire}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.intervention.typeintervention">typeintervention</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{intervention.typeintervention.type}}" readonly>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            ui-sref="intervention"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

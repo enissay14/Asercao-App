@@ -1,0 +1,195 @@
+<div>
+
+    <h2>Affaires</h2>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div ng-class="{active: $state.includes('manager')}"  has-role="ROLE_MANAGER">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#saveAffaireModal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-flash"></span> <span>Créer nouvelle Affaire</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="saveAffaireModal" tabindex="-1" role="dialog" aria-labelledby="myAffaireLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate ng-submit="create()" show-validation>
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myAffaireLabel">Créer ou éditer une Affaire</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+						<div class="form-group" has-role="ROLE_MANAGER">
+                            <label>Client</label>
+                            <select class="form-control" name="client" ng-model="affaire.client.id" ng-options="client.id as client.nom for client in clients">
+                            </select>
+                        </div>
+                        <div class="form-group" has-role="ROLE_MANAGER">
+                            <label>Secteur Affaire</label>
+                            <select class="form-control" name="statusaffaire" ng-model="affaire.statusaffaire.id" ng-options="statusaffaire.id as statusaffaire.status for statusaffaire in statusaffaires">
+                            </select>
+                        </div>
+                        <div class="form-group" has-role="ROLE_MANAGER">
+                            <label>Type Affaire</label>
+                            <select class="form-control" name="typeaffaire" ng-model="affaire.typeaffaire.id" ng-options="typeaffaire.id as typeaffaire.type for typeaffaire in typeaffaires">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>CodeAffaire</label>
+                            <input type="text" class="form-control" name="codeAffaire"
+                                   ng-model="affaire.codeAffaire" placeholder="{{affaire.codeAffaire}}" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" class="form-control" name="description"
+                                   ng-model="affaire.description">
+
+                        </div>
+						<div class="form-group" has-role="ROLE_MANAGER">
+                            <label>RespClient</label>
+                            <input type="text" class="form-control" name="respClient"
+                                   ng-model="affaire.respClient" required>
+
+                            <div ng-show="editForm.respClient.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.respClient.$error.required" >
+                                    ce champs est obligatoire.
+                                </p>
+                            </div>
+                        </div>
+						<div class="form-group" has-role="ROLE_MANAGER">
+                            <label>Responsable Affaire</label>
+                            <input type="text" class="form-control" name="respAffaire"
+                                   ng-model="affaire.respAffaire" >
+							
+							<div ng-show="editForm.respAffaire.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.respAffaire.$error.required" >
+                                    ce champs est obligatoire.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" has-role="ROLE_MANAGER">
+                            <label>Date Debut</label>
+                            <input type="date" class="form-control" name="dateDebut"
+                                   ng-model="affaire.dateDebut" required>
+
+                            <div ng-show="editForm.dateDebut.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.dateDebut.$error.required" >
+                                    Ce champs est obligatoire.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" has-role="ROLE_MANAGER">
+                            <label>Date Fin</label>
+                            <input type="date" class="form-control" name="dateFin"
+                                   ng-model="affaire.dateFin">
+
+                        </div>
+						<div class="form-group">
+                            <label>Code d'archivage</label>
+                            <input type="text" class="form-control" name="sauvegarde"
+                                   ng-model="affaire.sauvegarde" >
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Enregistrer</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteAffaireConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(affaire.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title">Confirmer la suppression</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Etes vous sûr de vouloir supprimmer cette Affaire?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Annuler</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Supprimmer</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Code Affaire</th>
+					<th>Description</th>
+                    <th>client</th>
+                    <th>Responsable Client</th>
+					<th>Responsable Affaire</th>
+                    <th>DateDebut</th>
+                    <th>DateFin</th>
+					<th>Code d'Archivage</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="affaire in affaires">
+                    <td>{{affaire.codeAffaire}}</td>
+                    <td>{{affaire.description}}</td>
+                    <td>{{affaire.client.nom}}</td>
+                    <td>{{affaire.respClient}}</td>
+					<td>{{affaire.respAffaire}}</td>
+                    <td>{{affaire.dateDebut}}</td>
+                    <td>{{affaire.dateFin}}</td>
+					<td>{{affaire.sauvegarde}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="affaireDetail({id:affaire.id})"
+                                class="btn btn-info btn-sm" ng-class="{active: $state.includes('manager')}"  has-role="ROLE_MANAGER">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span> Suivi</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="update(affaire.id)"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Editer</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(affaire.id)"
+                                class="btn btn-danger btn-sm" ng-class="{active: $state.includes('manager')}"  has-role="ROLE_MANAGER">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Supprimmer</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pager">
+                <li ng-show="links['first']" ng-click="loadPage(links['first'])"><a href="#">&lt;&lt;</a></li>
+                <li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a href="#">&lt;</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a href="#">&gt;</a></li>
+                <li ng-show="links['last']" ng-click="loadPage(links['last'])"><a href="#">&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

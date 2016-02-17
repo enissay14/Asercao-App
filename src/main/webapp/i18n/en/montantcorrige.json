@@ -1,0 +1,21 @@
+{
+    "appApp": {
+        "montantcorrige" : {
+            "home": {
+                "title": "Montantcorriges",
+                "createLabel": "Create a new Montantcorrige",
+                "createOrEditLabel": "Create or edit a Montantcorrige"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Montantcorrige {{ id }}?"
+            },
+            "detail": {
+                "title": "Montantcorrige"
+            },
+            "montantInterCorr": "MontantInterCorr",
+            "montantAchatCorr": "MontantAchatCorr",
+            "date": "Date",
+            "affaire": "affaire"
+        }
+    }
+}

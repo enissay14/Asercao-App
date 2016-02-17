@@ -1,0 +1,21 @@
+{
+    "appApp": {
+        "distance" : {
+            "home": {
+                "title": "Distances",
+                "createLabel": "Créer un nouveau Distance",
+                "createOrEditLabel": "Créer ou éditer un Distance"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Distance {{ id }} ?"
+            },
+            "detail": {
+                "title": "Distance"
+            },
+            "distance": "Distance",
+            "bareme": "Bareme",
+            "client": "client"
+        }
+    }
+}
+

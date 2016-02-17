@@ -1,0 +1,62 @@
+
+<div>
+    <h2><span translate="appApp.client.detail.title">Client</span> {{client.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="entity.detail.field">Field</th>
+                    <th translate="entity.detail.value">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span translate="appApp.client.nom">Nom</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{client.nom}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.client.email">Email</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{client.email}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.client.tel">Tel</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{client.tel}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.client.adresse">Adresse</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{client.adresse}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="appApp.client.distance">distance</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{client.distance.distance}}" readonly>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            ui-sref="client"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

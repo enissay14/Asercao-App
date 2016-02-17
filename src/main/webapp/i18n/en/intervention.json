@@ -1,0 +1,28 @@
+{
+    "appApp": {
+        "intervention" : {
+            "home": {
+                "title": "Interventions",
+                "createLabel": "Create a new Intervention",
+                "createOrEditLabel": "Create or edit a Intervention"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Intervention {{ id }}?"
+            },
+            "detail": {
+                "title": "Intervention"
+            },
+            "nbreHeure": "NbreHeure",
+            "tauxHoraire": "TauxHoraire",
+            "nbreJour": "NbreJour",
+            "montant": "Montant",
+            "montantCorr": "MontantCorr",
+            "montantDeplacement": "MontantDeplacement",
+            "dateDebut": "DateDebut",
+            "dateFin": "DateFin",
+            "salarie": "salarie",
+            "affaire": "affaire",
+            "typeintervention": "typeintervention"
+        }
+    }
+}

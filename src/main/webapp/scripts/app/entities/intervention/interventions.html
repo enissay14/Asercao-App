@@ -1,0 +1,241 @@
+<div>
+
+    <h2 translate="appApp.intervention.home.title">Intervention</h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#saveInterventionModal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="appApp.intervention.home.createLabel">Create a new Intervention</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="saveInterventionModal" tabindex="-1" role="dialog" aria-labelledby="myInterventionLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate ng-submit="create()" show-validation>
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myInterventionLabel" translate="appApp.intervention.home.createOrEditLabel">Create or edit a Intervention</h4>
+                    </div>
+                    <div class="modal-body">
+						<!-- Salarié -->
+                        <div class="form-group">
+                            <label translate="appApp.intervention.salarie">salarie</label>
+                            <select class="form-control" name="salarie" ng-model="intervention.salarie.id" ng-options="salarie.id as salarie.nom for salarie in salaries">
+                            </select>
+                        </div>
+						<!-- Affaire -->                       
+					   <div class="form-group">
+                            <label>affaire</label>
+                            <select class="form-control" name="affaire" ng-model="intervention.affaire.id" ng-options="affaire.id as affaire.codeAffaire for affaire in affaires">
+                            </select>
+                        </div>
+						<!-- Type Intervention -->
+						<div class="form-group">
+                            <label translate="appApp.intervention.typeintervention">typeintervention</label>
+                            <select class="form-control" name="typeintervention" ng-model="intervention.typeintervention.id" ng-options="typeintervention.id as typeintervention.type for typeintervention in typeinterventions">
+                            </select>
+                        </div>
+						<!-- nbreHeure -->
+                        <div class="form-group">
+                            <label translate="appApp.intervention.nbreHeure">NbreHeure</label>
+                            <input type="number" class="form-control" name="nbreHeure"
+                                   ng-model="intervention.nbreHeure" required>
+
+                            <div ng-show="editForm.nbreHeure.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.nbreHeure.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.nbreHeure.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- TauxHoraire -->
+						<div class="form-group">
+                            <label translate="appApp.intervention.tauxHoraire">TauxHoraire</label>
+                            <input type="number" class="form-control" name="tauxHoraire"
+                                   ng-model="intervention.tauxHoraire">
+
+                        </div>
+                        <!-- nbreJour -->
+						<div class="form-group">
+                            <label translate="appApp.intervention.nbreJour">NbreJour</label>
+                            <input type="number" class="form-control" name="nbreJour"
+                                   ng-model="intervention.nbreJour" required>
+
+                            <div ng-show="editForm.nbreJour.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.nbreJour.$error.required">
+                                    Ce champs est obligatoire.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.nbreJour.$error.number">
+                                    Ce champs doit être un nombre.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Montant -->
+						<div class="form-group">
+                            <label>Montant</label>
+                            <input type="number" class="form-control" name="montant"
+                                   ng-model="intervention.montant" placeholder="{{intervention.montant}}" required>
+
+                            <div ng-show="editForm.montant.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.montant.$error.required">
+                                    Ce champs est obligatoire.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.montant.$error.number">
+                                    Ce champs doit être un nombre.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Montant Corr -->
+						<div class="form-group">
+                            <label>Montant Corrigé</label>
+                            <input type="number" class="form-control" name="montantCorr"
+                                   ng-model="intervention.montantCorr" placeholder="{{intervention.montantCorr}}">
+
+                        </div>
+                        <!-- Montant Deplacement -->
+						<div class="form-group">
+                            <label translate="appApp.intervention.montantDeplacement">MontantDeplacement</label>
+                            <input type="number" class="form-control" name="montantDeplacement"
+                                   ng-model="intervention.montantDeplacement" placeholder="{{intervention.montantDeplacement}}">
+
+                        </div>
+                        <!-- DateDebut -->
+						<div class="form-group">
+                            <label translate="appApp.intervention.dateDebut">DateDebut</label>
+                            <input type="date" class="form-control" name="dateDebut"
+                                   ng-model="intervention.dateDebut" required>
+
+                            <div ng-show="editForm.dateDebut.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.dateDebut.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- DateFin -->
+						<div class="form-group">
+                            <label translate="appApp.intervention.dateFin">DateFin</label>
+                            <input type="date" class="form-control" name="dateFin"
+                                   ng-model="intervention.dateFin" required>
+
+                            <div ng-show="editForm.dateFin.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.dateFin.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+						
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteInterventionConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(intervention.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="appApp.intervention.delete.question" translate-values="{id: '{{intervention.id}}'}">Are you sure you want to delete this Intervention?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+					
+                    <th translate="appApp.intervention.salarie">salarie</th>
+                    <th translate="appApp.intervention.affaire">affaire</th>
+                    <th translate="appApp.intervention.typeintervention">typeintervention</th>
+                    <th translate="appApp.intervention.nbreHeure">NbreHeure</th>
+                    <th translate="appApp.intervention.tauxHoraire">TauxHoraire</th>
+                    <th translate="appApp.intervention.nbreJour">NbreJour</th>
+                    <th translate="appApp.intervention.montant">Montant</th>
+                    <th translate="appApp.intervention.dateDebut">DateDebut</th>
+                    <th translate="appApp.intervention.dateFin">DateFin</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="intervention in interventions">
+                    <td>{{intervention.salarie.nom}}</td>
+                    <td>{{intervention.affaire.codeAffaire}}</td>
+                    <td>{{intervention.typeintervention.type}}</td>
+                    <td>{{intervention.nbreHeure}}</td>
+                    <td>{{intervention.tauxHoraire}}</td>
+                    <td>{{intervention.nbreJour}}</td>
+                    <td>{{intervention.montant}}</td>
+                    <td>{{intervention.dateDebut}}</td>
+                    <td>{{intervention.dateFin}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="interventionDetail({id:intervention.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="update(intervention.id)"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(intervention.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pager">
+                <li ng-show="links['first']" ng-click="loadPage(links['first'])"><a href="#">&lt;&lt;</a></li>
+                <li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a href="#">&lt;</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a href="#">&gt;</a></li>
+                <li ng-show="links['last']" ng-click="loadPage(links['last'])"><a href="#">&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

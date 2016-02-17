@@ -1,0 +1,22 @@
+{
+    "appApp": {
+        "bonfacture" : {
+            "home": {
+                "title": "Bonfactures",
+                "createLabel": "Créer un nouveau Bonfacture",
+                "createOrEditLabel": "Créer ou éditer un Bonfacture"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Bonfacture {{ id }} ?"
+            },
+            "detail": {
+                "title": "Bonfacture"
+            },
+            "montant": "Montant",
+            "montantAchat": "MontantAchat",
+            "date": "Date",
+            "affaire": "affaire"
+        }
+    }
+}
+

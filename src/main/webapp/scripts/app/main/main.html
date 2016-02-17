@@ -1,0 +1,39 @@
+<div ng-cloak>
+    <div class="row">
+        <div class="col-md-4">
+            <span class="logo img-responsive img-rounded"></span>
+			<h1>Bienvenue, ASERCAO Gestion v2.1</h1>
+		</div>
+		
+        <div class="col-md-8">
+			
+			
+
+            <div ng-switch="isAuthenticated()" >
+                <div class="alert alert-success" ng-switch-when="true">
+                    Vous êtes connecté en tant que {{account.login}}.
+                </div>
+				
+				<div class="alert alert-warning" ng-switch-when="true" ui-sref-active="active">
+					<a ui-sref="salarie"><button type="button"  class="btn btn-primary" >
+						<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Pointage</span>
+					</button></a>
+					<a ui-sref="affaire"><button type="button"  class="btn btn-primary"  >
+						<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Suivi Affaire</span>
+					</button></a>
+					<a ui-sref="releve"><button type="button"  class="btn btn-primary"  >
+						<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Relevé d'heures mensuel</span>
+					</button></a>
+				</div>
+				
+				
+				
+                <div class="alert alert-warning" ng-switch-when="false">
+                    <a href="#/login">Authentifiez</a> vous pour accedez à votre compte.
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
